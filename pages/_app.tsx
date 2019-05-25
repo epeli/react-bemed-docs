@@ -9,6 +9,13 @@ import { rem } from "polished";
 
 const { MDXProvider } = require("@mdx-js/react");
 
+function slugify(s: string) {
+    return s
+        .trim()
+        .toLocaleLowerCase()
+        .replace(/[^a-z]+/g, "-");
+}
+
 const MdxBemed = bemed({
     elements: {
         Paragraph: bemed({
@@ -34,14 +41,50 @@ const MdxBemed = bemed({
                 border-radius: ${rem(5)};
             `,
         }),
+        HeaderContainer: bemed({
+            css: css`
+                flex-direction: row;
+                :hover a {
+                    color: skyblue;
+                }
+            `,
+        }),
+        HeaderAnchor: bemed({
+            as: "a",
+            css: css`
+                text-decoration: none;
+                top: ${rem(3)};
+                display: inline;
+                color: #f1f1f1;
+                margin-left: ${rem(10)};
+            `,
+        }),
     },
 })("MdxBemed");
+
+function createLinkableHeader(El: any) {
+    return function Header(props: { children: string }) {
+        const slug = slugify(props.children);
+        return (
+            <MdxBemed.HeaderContainer>
+                <El id={slug}>
+                    {props.children}
+                    <MdxBemed.HeaderAnchor href={"#" + slug}>
+                        #
+                    </MdxBemed.HeaderAnchor>
+                </El>
+            </MdxBemed.HeaderContainer>
+        );
+    };
+}
 
 const MdxComponents = {
     wrapper: Layout,
     p: MdxBemed.Paragraph,
     code: MdxCodeComponent,
     inlineCode: MdxBemed.InlineCode,
+    h1: createLinkableHeader("h1"),
+    h2: createLinkableHeader("h2"),
 };
 
 class Docs extends App {
