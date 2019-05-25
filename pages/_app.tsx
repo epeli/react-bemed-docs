@@ -15,6 +15,8 @@ const MdxBemed = bemed({
             as: "p",
             css: css`
                 display: block;
+                margin-top: ${rem(5)};
+                margin-bottom: ${rem(5)};
             `,
         }),
 

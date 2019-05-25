@@ -3,11 +3,14 @@ import Highlight, { defaultProps } from "prism-react-renderer";
 import { bemed } from "react-bemed";
 import { css } from "react-bemed/css";
 import theme from "prism-react-renderer/themes/nightOwl";
+import { rem } from "polished";
 
 const Code = bemed({
     as: "pre",
     css: css`
         padding: 10px;
+        margin-top: ${rem(5)};
+        margin-bottom: ${rem(5)};
     `,
     elements: {
         Line: bemed({
@@ -15,6 +18,9 @@ const Code = bemed({
                 display: block;
             `,
             mods: {
+                focusLine: css`
+                    background-color: rgb(68, 63, 62);
+                `,
                 firstFocusLine: css`
                     margin-top: 5px;
                     padding-top: 5px;
@@ -22,9 +28,6 @@ const Code = bemed({
                 lastFocusLine: css`
                     margin-bottom: 5px;
                     padding-bottom: 5px;
-                `,
-                focusLine: css`
-                    background-color: rgb(93, 78, 76);
                 `,
             },
         }),
@@ -94,7 +97,7 @@ function parseCodeFence(fence?: string): Range[] {
 
     const ranges: Range[] = [];
 
-    fence.replace(/\{([1-9]+),([0-9]+)\}/g, (_, start, end) => {
+    fence.replace(/\{([0-9]+),([0-9]+)\}/g, (_, start, end) => {
         ranges.push({
             start: Number(start),
             end: Number(end),

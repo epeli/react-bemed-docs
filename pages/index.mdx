@@ -1,10 +1,31 @@
+import {
+    Example,
+    Step1,
+    Step2,
+    Step3,
+    Step4,
+    Step5,
+    Step6,
+} from "../components/TutorialSteps";
+
 # BEMed Components
 
 BEMed Components or `react-bemed` is a component primitive building tool for
 React.js heavily inspired by Styled Components and the Block Element Modifier
 convention.
 
-Simples possible component with BEMed is
+Feature highlights
+
+-   Human readable class names
+-   Server-side rendering of critical CSS when using the CSS-in-JS tool
+-   Source maps when using the optional Babel plugin
+-   Always up to date TypeScript types as it is written in TypeScript
+
+Lets start with a simple tutorial
+
+## Basics
+
+Simplest possible component with BEMed is
 
 ```tsx
 import { bemed } from "react-bemed";
@@ -12,8 +33,243 @@ import { bemed } from "react-bemed";
 const Button = bemed({})("MyButton");
 ```
 
-This just creates a `div` with `MyButton` class
+This just creates a `div` with a `MyButton` class
 
 ```html
 <div class="MyButton"></div>
 ```
+
+We could start styling right away with vanilla CSS into a separate .css file
+but we can also use the `css` CSS-in-JS tool and write the styles with the
+component definition
+
+```tsx{1,1}{4,8}
+import { css } from "react-bemed/css";
+
+const Button = bemed({
+    css: css`
+        color: white;
+        background-color: hotpink;
+        padding: 10px;
+    `,
+})("MyButton");
+```
+
+and now with
+
+```tsx
+<Button>My button</Button>
+```
+
+we get
+
+<Example>
+    <Step1>My button</Step1>
+</Example>
+
+but this is not very accessible button because it's a `div` and not a real
+button. Lets make it into a real button
+
+```tsx{2,2}
+const Button = bemed({
+    as: "button",
+    css: css`
+        color: white;
+        background-color: hotpink;
+        padding: 10px;
+    `,
+})("MyButton");
+```
+
+Better but now the default browser styles have ruined our cool button styles
+
+<Example>
+    <Step2>My button</Step2>
+</Example>
+
+Luckily we have already defined an utility class that can reset button
+styles. Let's apply it to our button
+
+```tsx{3,3}
+const Button = bemed({
+    as: "button",
+    className: "reset-button",
+    css: css`
+        color: white;
+        background-color: hotpink;
+        padding: 10px;
+    `,
+})("MyButton");
+```
+
+<Example>
+    <Step3>My button</Step3>
+</Example>
+
+Our button is starting to look pretty good but for a generic React button
+this has one annoying feature: When it is inside a `<form>` element it
+will by default submit the form when clicked. This can be worked around by
+calling `e.preventDefault()` in the event handlers but it's cumbersome.
+
+Another way to prevent this is to change the button type from the default
+`submit` to `button` which has no default behaviour when clicked:
+
+```tsx{4,6}
+const Button = bemed({
+    as: "button",
+    className: "reset-button",
+    defaultProps: {
+        type: "button",
+    }
+    css: css`
+        color: white;
+        background-color: hotpink;
+        padding: 10px;
+    `,
+})("MyButton");
+```
+
+## Modifiers
+
+Some buttons are more important than others. So lets add a modifier that can
+make the button look more important
+
+```tsx{12,15}
+const Button = bemed({
+    as: "button",
+    className: "reset-button",
+    defaultProps: {
+        type: "button",
+    }
+    css: css`
+        color: white;
+        background-color: hotpink;
+        padding: 10px;
+    `,
+    mods: {
+        important: css`
+            box-shadow: 0px 0px 30px 10px purple;
+        `
+    }
+})("MyButton");
+```
+
+We can apply this mod just by adding an `important` boolean prop
+
+```
+<Button important>My button</Button>
+```
+
+This will add a class `MyButton--important` to the button and apply the
+styles to it when it's true
+
+<Example>
+    <Step4 important>My button</Step4>
+</Example>
+
+## Elements
+
+We already have pretty good button primitive with basic styles but real world
+React components are composed from multiple components. For example button
+might have a icon inside it.
+
+```tsx{1,1}{19,23}
+import { FaReact } from "react-icons/fa";
+
+const Button = bemed({
+    as: "button",
+    className: "reset-button",
+    defaultProps: {
+        type: "button",
+    }
+    css: css`
+        color: white;
+        background-color: hotpink;
+        padding: 10px;
+    `,
+    mods: {
+        important: css`
+            box-shadow: 0px 0px 30px 10px purple;
+        `
+    },
+    elements: {
+        Icon: bemed({
+            as: FaReact,
+        }),
+    },
+})("MyButton");
+```
+
+Note how we called `bemed()` again for the `elements` property and passed an
+arbitrary component from a third-party library `react-icons` for the `as`
+property. It can take any component which accepts a `className` prop.
+
+Now we can add the icon to our button
+
+```tsx{2,2}
+<MyButton important>
+    <MyButton.Icon size={20} />
+    React is Awesome
+</MyButton>
+```
+
+This icon element will get BEM element style class `MyButton__Icon` added to
+it.
+
+Props are passed to the underlying component so the `size` prop accepted
+by the `FaReact` component work as expected.
+
+<Example>
+    <Step5 important icon="foo">
+        <Step5.Icon size={40} />
+        React is Awesome!
+    </Step5>
+</Example>
+
+The styling of the icon is bit off though.
+
+```tsx{20,27}
+const Button = bemed({
+    as: "button",
+    className: "reset-button",
+    defaultProps: {
+        type: "button",
+    }
+    css: css`
+        color: white;
+        background-color: hotpink;
+        padding: 10px;
+    `,
+    mods: {
+        important: css`
+            box-shadow: 0px 0px 30px 10px purple;
+        `
+    },
+    elements: {
+        Icon: bemed({
+            as: FaReact,
+            css: css`
+                background-color: black;
+                border-radius: 20px;
+                padding: 1px;
+                path {
+                    fill: #61dafb;
+                }
+            `,
+        }),
+    },
+})("MyButton");
+```
+
+Note how we can target the `path` element inside the svg icon. This selector is
+scoped under the the `.MyButton__Icon` selector so it won't leak anywhere it
+shouldn't.
+
+And here's the result
+
+<Example>
+    <Step6 important icon="foo">
+        <Step6.Icon size={40} />
+        React is Awesome
+    </Step6>
+</Example>
