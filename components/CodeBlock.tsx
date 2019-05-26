@@ -4,6 +4,7 @@ import { bemed } from "react-bemed";
 import { css } from "react-bemed/css";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { rem } from "polished";
+import { ABSOLUTE_STRECH } from "./core";
 
 const PADDING = 22;
 
@@ -28,7 +29,6 @@ const Code = bemed({
                 `,
                 focusLine: css`
                     background-color: rgb(45, 43, 43);
-                    border-left: 10px solid rgb(140, 130, 128);
                 `,
                 firstFocusLine: css`
                     margin-top: 3px;
@@ -39,6 +39,15 @@ const Code = bemed({
                     padding-bottom: 7px;
                 `,
             },
+        }),
+
+        LineBar: bemed({
+            className: ABSOLUTE_STRECH,
+            css: css`
+                right: auto;
+                width: ${rem(PADDING / 2)};
+                background-color: rgb(140, 130, 128);
+            `,
         }),
 
         LineNumber: bemed({
@@ -139,29 +148,35 @@ export function CodeBlock(props: {
         >
             {hl => (
                 <Code className={hl.className} style={hl.style}>
-                    {hl.tokens.map((line, i) => (
-                        <Code.Line
-                            {...hl.getLineProps({ line, key: i })}
-                            focusLine={isInRange(i + 1, props.highlightRanges)}
-                            firstLine={i === 0}
-                            lastLine={hl.tokens.length - 1 === i}
-                            firstFocusLine={isFirstInRange(
-                                i + 1,
-                                props.highlightRanges,
-                            )}
-                            lastFocusLine={isLastInRange(
-                                i + 1,
-                                props.highlightRanges,
-                            )}
-                        >
-                            {line.map((token, key) => (
-                                <span
-                                    className="lol"
-                                    {...hl.getTokenProps({ token, key })}
-                                />
-                            ))}
-                        </Code.Line>
-                    ))}
+                    {hl.tokens.map((line, i) => {
+                        const isFocusLine = isInRange(
+                            i + 1,
+                            props.highlightRanges,
+                        );
+                        return (
+                            <Code.Line
+                                {...hl.getLineProps({ line, key: i })}
+                                focusLine={isFocusLine}
+                                firstLine={i === 0}
+                                lastLine={hl.tokens.length - 1 === i}
+                                firstFocusLine={isFirstInRange(
+                                    i + 1,
+                                    props.highlightRanges,
+                                )}
+                                lastFocusLine={isLastInRange(
+                                    i + 1,
+                                    props.highlightRanges,
+                                )}
+                            >
+                                {line.map((token, key) => (
+                                    <span
+                                        {...hl.getTokenProps({ token, key })}
+                                    />
+                                ))}
+                                {isFocusLine && <Code.LineBar />}
+                            </Code.Line>
+                        );
+                    })}
                 </Code>
             )}
         </Highlight>
