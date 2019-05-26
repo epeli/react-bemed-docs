@@ -73,9 +73,25 @@ export function Menu() {
                 <Item title="Tutorial" href="/" />
                 <Item sub title="Install" href="/#install" />
                 <Item sub title="Basics" href="/#basics" />
+                <Item
+                    sub
+                    title="Target DOM Elements"
+                    href="/#target-dom-elements"
+                />
+                <Item
+                    sub
+                    title="Custom Class Names"
+                    href="/#custom-class-names"
+                />
                 <Item sub title="Default Props" href="/#default-props" />
                 <Item sub title="Modifiers" href="/#modifiers" />
                 <Item sub title="Elements" href="/#elements" />
+                <Item
+                    sub
+                    title="Custom Target Components"
+                    href="/#scoped-css-selectors"
+                />
+                <Item sub title="Scoped CSS Selectors" href="/#elements" />
                 <Item title="Advanced Modifiers" href="/mods" />
                 <Item title="Server-Side Rendering" href="/ssr" />
                 <Item title="Babel Plugin" href="/babel" />

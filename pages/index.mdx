@@ -77,6 +77,8 @@ we get
     <Step1>My button</Step1>
 </Example>
 
+## Target DOM Elements
+
 but this is not very accessible button because it's a `div` and not a real
 button. Lets make it into a real button
 
@@ -96,6 +98,8 @@ Better but now the default browser styles have ruined our cool button styles
 <Example>
     <Step2>My button</Step2>
 </Example>
+
+## Custom Class Names
 
 Luckily we have already defined an utility class that can reset button
 styles. Let's apply it to our button
@@ -234,6 +238,8 @@ are exposed as properties of the parent:
 </MyButton>
 ```
 
+## Custom Target Components
+
 Note how we used a custom component `FaReact` for the `as` property. In fact
 `bemed()` can use any components as the target; even other components created
 by itself.
@@ -247,6 +253,8 @@ by the `FaReact` component works as expected.
         React is Awesome!
     </Step5>
 </Example>
+
+## Scoped CSS Selectors
 
 The styling of the icon is bit off though. Lets fix that
 
