@@ -8,6 +8,7 @@ import { css } from "react-bemed/css";
 import { Menu } from "./Menu";
 import { Colors, MOBILE_BREAK_POINT } from "./core";
 import { MenuFooter } from "./MenuFooter";
+import { useScrollLock } from "./hooks";
 
 const MENU_WIDTH = rem(250);
 
@@ -20,10 +21,12 @@ const Blk = bemed({
         MenuContainer: bemed({
             css: css`
                 width: ${MENU_WIDTH};
+                background-color: ${Colors.black};
+                justify-content: space-between;
+                overflow: auto;
                 position: fixed;
                 left: 0;
                 top: 0;
-                background-color: red;
                 bottom: 0;
                 @media (max-width: ${MOBILE_BREAK_POINT}) {
                     display: none;
@@ -44,11 +47,8 @@ const Blk = bemed({
         }),
         MenuFooterContainer: bemed({
             css: css`
-                height: 100px;
-                position: absolute;
-                left: 0px;
-                right: 0px;
-                bottom: 0px;
+                margin-top: ${rem(50)};
+                height: ${rem(100)};
             `,
         }),
         ContentWrap: bemed({
@@ -108,6 +108,7 @@ const Blk = bemed({
 export function Layout(props: { children: React.ReactNode }) {
     const [isMobileMenuVisible, setMobileMenuVisible] = React.useState(false);
     const toggleMenu = () => setMobileMenuVisible(visible => !visible);
+    useScrollLock(isMobileMenuVisible);
 
     return (
         <Blk>

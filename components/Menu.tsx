@@ -5,9 +5,7 @@ import { rem } from "polished";
 import { Colors, ABSOLUTE_STRECH } from "./core";
 
 const Blk = bemed({
-    className: ABSOLUTE_STRECH,
     css: css`
-        background-color: ${Colors.black};
         padding-left: ${rem(25)};
         padding-right: ${rem(25)};
     `,
