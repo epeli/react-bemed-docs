@@ -98,7 +98,7 @@ export function Menu() {
                     href="/#scoped-css-selectors"
                 />
 
-                <Item title="Modifiers Types" href="/mods" />
+                <Item title="Modifier Types" href="/mods" />
                 <Item title="Server-Side Rendering" href="/ssr" />
                 <Item title="Babel Plugin" href="/babel" />
                 <Item sub title="Source Maps" href="/babel#source-maps" />
