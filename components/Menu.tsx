@@ -90,9 +90,14 @@ export function Menu() {
                 <Item
                     sub
                     title="Custom Target Components"
+                    href="/#custom-target-components"
+                />
+                <Item
+                    sub
+                    title="Scoped CSS Selectors"
                     href="/#scoped-css-selectors"
                 />
-                <Item sub title="Scoped CSS Selectors" href="/#elements" />
+
                 <Item title="Advanced Modifiers" href="/mods" />
                 <Item title="Server-Side Rendering" href="/ssr" />
                 <Item title="Babel Plugin" href="/babel" />
