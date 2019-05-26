@@ -16,12 +16,15 @@ convention.
 
 Feature highlights
 
+-   Not limited to just styles: Define custom classes and other props in the
+    "BEMEd" component definitions
 -   Human readable class names
 -   Server-side rendering of critical CSS when using the CSS-in-JS tool
 -   Source maps when using the optional Babel plugin
 -   Always up to date TypeScript types as it is written in TypeScript
 
-Lets start with a simple tutorial
+We'll introduce the libary via short tutorial which does not expect any pior
+knowledge of Styled Components or BEM.
 
 ## Install
 
@@ -43,9 +46,9 @@ This just creates a `div` with a `MyButton` class
 <div class="MyButton"></div>
 ```
 
-We could start styling right away with vanilla CSS into a separate .css file
-but we can also use the `css` CSS-in-JS tool and write the styles with the
-component definition
+We could just start styling right away with vanilla CSS into a separate .css
+file but we can also use the `css` CSS-in-JS tool and write the styles with
+the component definition
 
 ```tsx{1,1}{4,8}
 import { css } from "react-bemed/css";
@@ -158,7 +161,7 @@ const Button = bemed({
 })("MyButton");
 ```
 
-We can apply this mod just by adding an `important` boolean prop
+We can apply this mod just by adding the `important` boolean prop
 
 ```
 <Button important>My button</Button>
@@ -176,6 +179,13 @@ styles to it when it's true
 We already have pretty good button primitive with basic styles but real world
 React components are composed from multiple components. For example button
 might have an icon element inside it.
+
+One could start by just creating a another standalone component with the
+`bemed()` function but in BEM there is a concept of "elements" that have no
+standalone meaning but are part of a larger component or a "block" in BEM
+terms.
+
+The `bemed()` function supports this convention with the `elements` property
 
 ```tsx{1,1}{19,23}
 import { FaReact } from "react-icons/fa";
@@ -204,11 +214,11 @@ const Button = bemed({
 })("MyButton");
 ```
 
-Note how we called `bemed()` again for the `elements` property and passed an
-arbitrary component from a third-party library `react-icons` for the `as`
-property. It can take any component which accepts a `className` prop.
-
-Now we can add the icon to our button
+These element components are not techincally any different from the
+standalone components. The idea is to just tell the reader that these
+components are inherently part of the parent component. They get class names
+automatically from the parent component (in this case `MyButton__Icon`) and
+are exposed as properties of the parent:
 
 ```tsx{2,2}
 <MyButton important>
@@ -217,11 +227,12 @@ Now we can add the icon to our button
 </MyButton>
 ```
 
-This icon element will get BEM element style class `MyButton__Icon` added to
-it.
+Note how we used a custom component `FaReact` for the `as` property. In fact
+`bemed()` can use any components as the target; even other components created
+by itself.
 
 Props are passed to the underlying component so the `size` prop accepted
-by the `FaReact` component work as expected.
+by the `FaReact` component works as expected.
 
 <Example>
     <Step5 important icon="foo">
@@ -230,7 +241,7 @@ by the `FaReact` component work as expected.
     </Step5>
 </Example>
 
-The styling of the icon is bit off though.
+The styling of the icon is bit off though. Lets fix that
 
 ```tsx{20,27}
 const Button = bemed({
@@ -265,9 +276,9 @@ const Button = bemed({
 })("MyButton");
 ```
 
-Note how we can target the `path` element inside the svg icon. This selector is
-scoped under the the `.MyButton__Icon` selector so it won't leak anywhere it
-shouldn't.
+We can target the `path` element inside the svg icon. This selector is scoped
+automatically under the `.MyButton__Icon` selector so it won't leak
+anywhere it shouldn't.
 
 And here's the result
 

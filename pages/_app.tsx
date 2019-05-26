@@ -6,6 +6,7 @@ import { bemed } from "react-bemed";
 import { css } from "react-bemed/css";
 import { MdxCodeComponent } from "../components/CodeHighlight";
 import { rem } from "polished";
+import { Colors } from "../components/core";
 
 const { MDXProvider } = require("@mdx-js/react");
 
@@ -45,7 +46,7 @@ const MdxBemed = bemed({
             css: css`
                 flex-direction: row;
                 :hover a {
-                    color: skyblue;
+                    color: ${Colors.fontBlack};
                 }
             `,
         }),
