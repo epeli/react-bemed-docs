@@ -81,6 +81,12 @@ export function Menu() {
                 <Item title="Advanced Modifiers" href="/mods" />
                 <Item title="Server-Side Rendering" href="/ssr" />
                 <Item title="Babel Plugin" href="/babel" />
+                <Item sub title="Source Maps" href="/babel#source-maps" />
+                <Item
+                    sub
+                    title="CSS Precompiling"
+                    href="/babel#css-precompiling"
+                />
                 <Item title="Examples" href="/examples" />
                 <Item title="FAQ" href="/faq" />
             </Blk.List>
