@@ -1,9 +1,12 @@
 import React from "react";
 import { rem } from "polished";
+import { FaHamburger } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
 
 import { bemed } from "react-bemed";
 import { css } from "react-bemed/css";
 import { Menu } from "./Menu";
+import { Colors } from "./core";
 
 const MOBILE_BREAK_POINT = rem(740);
 
@@ -68,10 +71,28 @@ const Blk = bemed({
                 right: ${rem(30)};
                 height: ${rem(50)};
                 width: ${rem(50)};
+
+                cursor: pointer;
+                background-color: ${Colors.black};
+                border-style: none;
+                border-radius: ${rem(50)};
+                color: white;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0px 0px 5px 2px black;
+
                 @media (min-width: ${MOBILE_BREAK_POINT}) {
                     display: none;
                 }
             `,
+            mods: {
+                isOpen: css`
+                    background-color: white;
+                    svg {
+                        color: ${Colors.black};
+                    }
+                `,
+            },
         }),
     },
 })("Layout");
@@ -90,7 +111,13 @@ export function Layout(props: { children: React.ReactNode }) {
                 <Menu />
             </Blk.MenuContainer>
 
-            <Blk.MenuButton onClick={toggleMenu}>ding</Blk.MenuButton>
+            <Blk.MenuButton onClick={toggleMenu} isOpen={isMobileMenuVisible}>
+                {isMobileMenuVisible ? (
+                    <MdClose size={25} />
+                ) : (
+                    <FaHamburger size={25} />
+                )}
+            </Blk.MenuButton>
         </Blk>
     );
 }
