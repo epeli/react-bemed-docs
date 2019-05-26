@@ -51,12 +51,12 @@ const Blk = bemed({
 })("Menu");
 
 function Item(props: { sub?: boolean; href: string; title: string }) {
-    const Ding = props.sub ? Blk.SubLink : Blk.Link;
+    const ItemLink = props.sub ? Blk.SubLink : Blk.Link;
 
     return (
         <Blk.Item>
             <Link href={props.href} passHref>
-                <Ding>{props.title}</Ding>
+                <ItemLink>{props.title}</ItemLink>
             </Link>
         </Blk.Item>
     );
