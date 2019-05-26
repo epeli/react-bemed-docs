@@ -4,7 +4,7 @@ import { Layout } from "../components/Layout";
 import { SSRProvider } from "react-bemed/css";
 import { bemed } from "react-bemed";
 import { css } from "react-bemed/css";
-import { MdxCodeComponent } from "../components/CodeHighlight";
+import { MdxCodeBlock } from "../components/CodeBlock";
 import { rem } from "polished";
 import { Colors } from "../components/core";
 
@@ -84,7 +84,7 @@ function createLinkableHeader(El: any) {
 const MdxComponents = {
     wrapper: Layout,
     p: MdxBemed.Paragraph,
-    code: MdxCodeComponent,
+    code: MdxCodeBlock,
     inlineCode: MdxBemed.InlineCode,
     h1: createLinkableHeader("h1"),
     h2: createLinkableHeader("h2"),

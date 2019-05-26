@@ -109,18 +109,15 @@ function parseCodeFence(fence?: string): Range[] {
     return ranges;
 }
 
-export function MdxCodeComponent(props: {
-    className?: string;
-    children: string;
-}) {
+export function MdxCodeBlock(props: { className?: string; children: string }) {
     return (
-        <CodeHighlight highlightRanges={parseCodeFence(props.className)}>
+        <CodeBlock highlightRanges={parseCodeFence(props.className)}>
             {props.children}
-        </CodeHighlight>
+        </CodeBlock>
     );
 }
 
-export function CodeHighlight(props: {
+export function CodeBlock(props: {
     highlightRanges?: Range[];
     children: string;
 }) {
