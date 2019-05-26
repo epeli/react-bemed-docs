@@ -6,9 +6,8 @@ import { MdClose } from "react-icons/md";
 import { bemed } from "react-bemed";
 import { css } from "react-bemed/css";
 import { Menu } from "./Menu";
-import { Colors } from "./core";
-
-const MOBILE_BREAK_POINT = rem(740);
+import { Colors, MOBILE_BREAK_POINT } from "./core";
+import { MenuFooter } from "./MenuFooter";
 
 const MENU_WIDTH = rem(250);
 
@@ -42,6 +41,15 @@ const Blk = bemed({
                     }
                 `,
             },
+        }),
+        MenuFooterContainer: bemed({
+            css: css`
+                height: 100px;
+                position: absolute;
+                left: 0px;
+                right: 0px;
+                bottom: 0px;
+            `,
         }),
         ContentWrap: bemed({
             css: css`
@@ -79,7 +87,7 @@ const Blk = bemed({
                 color: white;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0px 0px 5px 2px black;
+                box-shadow: 0px 0px 10px 3px gray;
 
                 @media (min-width: ${MOBILE_BREAK_POINT}) {
                     display: none;
@@ -109,6 +117,9 @@ export function Layout(props: { children: React.ReactNode }) {
 
             <Blk.MenuContainer showMobile={isMobileMenuVisible}>
                 <Menu />
+                <Blk.MenuFooterContainer>
+                    <MenuFooter />
+                </Blk.MenuFooterContainer>
             </Blk.MenuContainer>
 
             <Blk.MenuButton onClick={toggleMenu} isOpen={isMobileMenuVisible}>
