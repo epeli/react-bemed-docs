@@ -6,8 +6,8 @@ import theme from "prism-react-renderer/themes/nightOwl";
 import { rem } from "polished";
 
 const Code = bemed({
-    as: "pre",
     css: css`
+        overflow-x: auto;
         padding: 10px;
         margin-top: ${rem(5)};
         margin-bottom: ${rem(5)};
