@@ -18,6 +18,14 @@ const FOO = createClassName(
     `,
 );
 
+function msg(msg: string) {
+    return {
+        onClick() {
+            alert(msg);
+        },
+    };
+}
+
 const RESET_BUTTON = createClassName(
     "reset-button",
     css`
@@ -50,6 +58,9 @@ export const Step1 = bemed({
 })("MyButton1");
 
 export const Step2 = bemed({
+    defaultProps: {
+        ...msg("I'm a real button!"),
+    },
     className: FOO,
     as: "button",
     css: css`
@@ -61,6 +72,9 @@ export const Step2 = bemed({
 })("MyButton2");
 
 export const Step3 = bemed({
+    defaultProps: {
+        ...msg("Get it?"),
+    },
     className: [FOO, RESET_BUTTON],
     as: "button",
     css: css`
@@ -75,6 +89,7 @@ export const Step4 = bemed({
     className: [FOO, RESET_BUTTON],
     as: "button",
     defaultProps: {
+        ...msg("Dang!"),
         type: "button",
     },
     css: css`
@@ -93,6 +108,7 @@ export const Step5 = bemed({
     className: [FOO, RESET_BUTTON],
     as: "button",
     defaultProps: {
+        ...msg("What's out Vue!"),
         type: "button",
     },
     css: css`
@@ -116,6 +132,7 @@ export const Step6 = bemed({
     className: [FOO, RESET_BUTTON],
     as: "button",
     defaultProps: {
+        ...msg("Hmm, what is this Svelte stuff..."),
         type: "button",
     },
     css: css`
