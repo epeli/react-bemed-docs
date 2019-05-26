@@ -5,29 +5,38 @@ import { css } from "react-bemed/css";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { rem } from "polished";
 
+const PADDING = 22;
+
 const Code = bemed({
     css: css`
         overflow-x: auto;
-        padding: 10px;
-        margin-top: ${rem(5)};
-        margin-bottom: ${rem(5)};
     `,
     elements: {
         Line: bemed({
             css: css`
                 display: block;
+                padding-left: ${rem(PADDING)};
+                padding-right: ${rem(PADDING)};
+                min-width: 100%;
             `,
             mods: {
+                firstLine: css`
+                    margin-top: ${rem(PADDING)};
+                `,
+                lastLine: css`
+                    margin-bottom: ${rem(PADDING)};
+                `,
                 focusLine: css`
-                    background-color: rgb(68, 63, 62);
+                    background-color: rgb(45, 43, 43);
+                    border-left: 10px solid rgb(140, 130, 128);
                 `,
                 firstFocusLine: css`
-                    margin-top: 5px;
-                    padding-top: 5px;
+                    margin-top: 3px;
+                    padding-top: 7px;
                 `,
                 lastFocusLine: css`
-                    margin-bottom: 5px;
-                    padding-bottom: 5px;
+                    margin-bottom: 3px;
+                    padding-bottom: 7px;
                 `,
             },
         }),
@@ -41,7 +50,7 @@ const Code = bemed({
             `,
         }),
     },
-})("CodeHighlight");
+})("CodeBlock");
 
 interface Range {
     start: number;
@@ -134,6 +143,8 @@ export function CodeBlock(props: {
                         <Code.Line
                             {...hl.getLineProps({ line, key: i })}
                             focusLine={isInRange(i + 1, props.highlightRanges)}
+                            firstLine={i === 0}
+                            lastLine={hl.tokens.length - 1 === i}
                             firstFocusLine={isFirstInRange(
                                 i + 1,
                                 props.highlightRanges,
@@ -143,9 +154,11 @@ export function CodeBlock(props: {
                                 props.highlightRanges,
                             )}
                         >
-                            <Code.LineNumber>{i + 1}</Code.LineNumber>
                             {line.map((token, key) => (
-                                <span {...hl.getTokenProps({ token, key })} />
+                                <span
+                                    className="lol"
+                                    {...hl.getTokenProps({ token, key })}
+                                />
                             ))}
                         </Code.Line>
                     ))}
