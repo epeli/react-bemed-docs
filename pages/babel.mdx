@@ -1,0 +1,31 @@
+# Babel Plugin
+
+BEMed comes with a Babel Plugin which it's completely optional but it can be
+used improve the developer experience and optimize bundle size and exection
+sizes
+
+The entry point for the plugin is `react-bemed/babel`.
+
+So for example in Next.js you would add `babel.config.js` with
+
+```tsx
+module.exports = {
+    presets: ["next/babel"],
+    plugins: ["react-bemed/babel"],
+};
+```
+
+## Source Maps
+
+Source maps are enabled by default in development and removed in production
+
+## CSS Precompiling
+
+You can enable CSS precompiling by passing `precompile: true` as the plugin options
+
+```tsx
+module.exports = {
+    presets: ["next/babel"],
+    plugins: [["react-bemed/babel", { precompile: true }]],
+};
+```

@@ -53,6 +53,7 @@ const Blk = bemed({
                 width: 100%;
                 padding-left: ${rem(30)};
                 padding-right: ${rem(30)};
+                padding-bottom: ${rem(100)};
                 max-width: ${rem(800)};
             `,
         }),

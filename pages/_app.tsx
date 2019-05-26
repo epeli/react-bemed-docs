@@ -12,9 +12,10 @@ const { MDXProvider } = require("@mdx-js/react");
 
 function slugify(s: string) {
     return s
+        .toLowerCase()
+        .replace(/[^a-z]+/g, " ")
         .trim()
-        .toLocaleLowerCase()
-        .replace(/[^a-z]+/g, "-");
+        .replace(/ +/g, "-");
 }
 
 const MdxBemed = bemed({
@@ -25,6 +26,7 @@ const MdxBemed = bemed({
                 display: block;
                 margin-top: ${rem(5)};
                 margin-bottom: ${rem(5)};
+                line-height: 1.6;
             `,
         }),
 

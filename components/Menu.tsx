@@ -75,9 +75,11 @@ export function Menu() {
                 <Item title="Tutorial" href="/" />
                 <Item sub title="Install" href="/#install" />
                 <Item sub title="Basics" href="/#basics" />
+                <Item sub title="Default Props" href="/#default-props" />
                 <Item sub title="Modifiers" href="/#modifiers" />
                 <Item sub title="Elements" href="/#elements" />
                 <Item title="Advanced Modifiers" href="/mods" />
+                <Item title="Server-Side Rendering" href="/ssr" />
                 <Item title="Babel Plugin" href="/babel" />
                 <Item title="Examples" href="/examples" />
                 <Item title="FAQ" href="/faq" />

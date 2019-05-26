@@ -113,13 +113,17 @@ const Button = bemed({
     <Step3>My button</Step3>
 </Example>
 
+## Default Props
+
 Our button is starting to look pretty good but for a generic React button
 this has one annoying feature: When it is inside a `<form>` element it
 will by default submit the form when clicked. This can be worked around by
 calling `e.preventDefault()` in the event handlers but it's cumbersome.
 
 Another way to prevent this is to change the button type from the default
-`submit` to `button` which has no default behaviour when clicked:
+`submit` to `button` which has no default behaviour when clicked
+
+This can be done by adding a default prop for it
 
 ```tsx{4,6}
 const Button = bemed({
@@ -288,3 +292,10 @@ And here's the result
         React is Awesome
     </Step6>
 </Example>
+
+Targeting child elements like this using CSS is really powerful but it should
+be avoided as much as possible because it makes fixed dependencies between
+the components that can make it harder to refactor and in worst case can leak
+into unwanted components. For example if the `FaIcon` would accept children
+and you would pass a `path` component to it the style we created earlier
+would apply to it.
