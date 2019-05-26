@@ -110,6 +110,19 @@ export function Layout(props: { children: React.ReactNode }) {
     const toggleMenu = () => setMobileMenuVisible(visible => !visible);
     useScrollLock(isMobileMenuVisible);
 
+    React.useEffect(() => {
+        function listener(e: any) {
+            if (e.target.tagName === "A") {
+                setMobileMenuVisible(false);
+            }
+        }
+
+        window.addEventListener("click", listener, false);
+        return () => {
+            window.removeEventListener("click", listener);
+        };
+    }, []);
+
     return (
         <Blk>
             <Blk.ContentWrap>
