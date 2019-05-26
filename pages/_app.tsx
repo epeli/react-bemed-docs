@@ -91,16 +91,6 @@ const MdxComponents = {
 };
 
 class Docs extends App {
-    //   static async getInitialProps(params: any) {
-    //     let pageProps = {};
-
-    //     if (params.Component.getInitialProps) {
-    //       pageProps = await params.Component.getInitialProps(params.ctx);
-    //     }
-
-    //     return { pageProps };
-    //   }
-
     render() {
         const { Component, pageProps } = this.props;
 
