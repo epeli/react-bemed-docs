@@ -42,12 +42,14 @@ const Button = bemed({})("MyButton");
 
 This just creates a `div` with a `MyButton` class
 
-```html
+```tsx
+<Button />
+// =>
 <div class="MyButton"></div>
 ```
 
 We could just start styling right away with vanilla CSS into a separate .css
-file but we can also use the `css` CSS-in-JS tool and write the styles with
+file but we can also use the CSS-in-JS api and write the styles within
 the component definition
 
 ```tsx{1,1}{4,8}
@@ -90,7 +92,12 @@ const Button = bemed({
 })("MyButton");
 ```
 
-Better but now the default browser styles have ruined our cool button styles
+```tsx
+// Result
+<button class="MyButton">My button</button>
+```
+
+It's better but now the default browser styles have ruined our cool button styles
 
 <Example>
     <Step2>My button</Step2>
@@ -113,6 +120,11 @@ const Button = bemed({
 })("MyButton");
 ```
 
+```tsx
+// Result
+<button class="MyButton reset-button">My button</button>
+```
+
 <Example>
     <Step3>My button</Step3>
 </Example>
@@ -120,12 +132,11 @@ const Button = bemed({
 ## Default Props
 
 Our button is starting to look pretty good but for a generic React button
-this has one annoying feature: When it is inside a `<form>` element it
-will by default submit the form when clicked. This can be worked around by
-calling `e.preventDefault()` in the event handlers but it's cumbersome.
+this has one annoying feature: When it is inside a `<form>` element it will
+by default submit the form when clicked.
 
-Another way to prevent this is to change the button type from the default
-`submit` to `button` which has no default behaviour when clicked
+We can prevent this by changing the button type from the default `submit` to
+the `button` type which has no default behaviour when clicked.
 
 This can be done by adding a default prop for it
 
@@ -142,6 +153,13 @@ const Button = bemed({
         padding: 10px;
     `,
 })("MyButton");
+```
+
+```tsx
+// Result
+<button type="button" class="MyButton reset-button">
+    My button
+</button>
 ```
 
 ## Modifiers
@@ -173,6 +191,13 @@ We can apply this mod just by adding the `important` boolean prop
 
 ```
 <Button important>My button</Button>
+```
+
+```tsx
+// Result
+<button type="button" class="MyButton MyButton--important reset-button">
+    My button
+</button>
 ```
 
 This will add a class `MyButton--important` to the button and apply the
@@ -225,8 +250,8 @@ const Button = bemed({
 These element components are not techincally any different from the
 standalone components. The idea is to just tell the reader that these
 components are inherently part of the parent component. They get class names
-automatically from the parent component (in this case `MyButton__Icon`) and
-are exposed as properties of the parent:
+automatically from the parent component (`MyButton__Icon`) and are exposed as
+properties of the parent:
 
 ```tsx{2,2}
 <MyButton important>
@@ -234,6 +259,21 @@ are exposed as properties of the parent:
     React is Awesome
 </MyButton>
 ```
+
+```tsx
+// Result
+<button type="button" class="MyButton MyButton--important reset-button">
+    <svg className="MyButton__Icon"><path ... /></svg>
+    React is Awesome
+</button>
+```
+
+<Example>
+    <Step5 important icon="foo">
+        <Step5.Icon size={40} />
+        React is Awesome!
+    </Step5>
+</Example>
 
 ## Custom Target Components
 
@@ -243,13 +283,6 @@ by itself.
 
 Props are passed to the underlying component so the `size` prop accepted
 by the `FaReact` component works as expected.
-
-<Example>
-    <Step5 important icon="foo">
-        <Step5.Icon size={40} />
-        React is Awesome!
-    </Step5>
-</Example>
 
 ## Scoped CSS Selectors
 
@@ -289,8 +322,7 @@ const Button = bemed({
 ```
 
 We can target the `path` element inside the svg icon. This selector is scoped
-automatically under the `.MyButton__Icon` selector so it won't leak
-anywhere it shouldn't.
+automatically under the `.MyButton__Icon` class selector.
 
 And here's the result
 
