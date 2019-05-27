@@ -68,7 +68,7 @@ const Blk = bemed({
         ContentWrap: bemed({
             css: css`
                 @media (min-width: ${MOBILE_BREAK_POINT}) {
-                    margin-left: ${MENU_WIDTH};
+                    padding-left: ${MENU_WIDTH};
                 }
                 width: 100%;
             `,
