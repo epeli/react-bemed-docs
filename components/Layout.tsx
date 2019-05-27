@@ -14,10 +14,24 @@ const MENU_WIDTH = rem(250);
 
 const Blk = bemed({
     css: css`
-        flex-direction: row-reverse;
         min-height: 100vh;
     `,
     elements: {
+        MobileHeader: bemed({
+            as: "h1",
+            css: css`
+                margin: 0;
+                padding-top: ${rem(20)};
+                padding-bottom: ${rem(20)};
+                padding-left: ${rem(30)};
+                height: ${50};
+                background-color: ${Colors.black};
+                color: ${Colors.menuTitle};
+                @media (min-width: ${MOBILE_BREAK_POINT}) {
+                    display: none;
+                }
+            `,
+        }),
         MenuContainer: bemed({
             css: css`
                 width: ${MENU_WIDTH};
@@ -126,6 +140,7 @@ export function Layout(props: { children: React.ReactNode }) {
     return (
         <Blk>
             <Blk.ContentWrap>
+                <Blk.MobileHeader>BEMed Components</Blk.MobileHeader>
                 <Blk.Content>{props.children}</Blk.Content>
             </Blk.ContentWrap>
 
