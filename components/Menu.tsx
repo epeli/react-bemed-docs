@@ -14,6 +14,7 @@ const Blk = bemed({
         Title: bemed({
             as: "h1",
             css: css`
+                text-align: center;
                 a {
                     color: ${Colors.menuTitle};
                     text-decoration: none;
@@ -67,7 +68,7 @@ export function Menu() {
         <Blk>
             <Blk.Title>
                 <Link href="/" passHref>
-                    <a>BEMed</a>
+                    <a>BEMed Components</a>
                 </Link>
             </Blk.Title>
             <Blk.List>
