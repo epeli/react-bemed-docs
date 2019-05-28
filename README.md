@@ -1,10 +1,3 @@
 # BEMed Components Documentation site 
 
-<https://bemed-components.netlify.com/>
-
-Hacking
-
-```
-yarn install
-yarn dev
-```
+Moved to <https://github.com/epeli/react-bemed/tree/master/docs>
